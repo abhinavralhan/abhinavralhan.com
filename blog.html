@@ -4,13 +4,18 @@ title: Blog
 permalink: /blog.html
 ---
 
-<h1 style="font-size: 2.5rem; margin-bottom: 30px;">Blog & Search</h1>
+<div style="max-width: 800px; margin: 60px auto; padding: 0 20px;">
+  <h1 style="font-size: 3rem; text-align: center; margin-bottom: 50px; color: #222;">Blog</h1>
+  <p style="text-align:center; margin-bottom:40px;">
+  <a href="/" style="color:#0066cc; text-decoration:none; font-size:18px;">← Back to Home</a>
+  </p>
+  <input type="text" id="search-input" placeholder="Search posts…" 
+         style="width:100%; padding:16px; font-size:18px; border:2px solid #0066cc; border-radius:12px; margin-bottom:40px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
 
-<input type="text" id="search-input" placeholder="Type to search posts…" 
-       style="width:100%; padding:14px; font-size:18px; border:2px solid #0066cc; border-radius:8px; margin-bottom:30px;">
+  <div id="results"></div>
 
-<!-- This list will show results OR all posts -->
-<ul id="results" style="list-style:none; padding:0; margin:0;"></ul>
+  <p id="no-results" style="text-align:center; color:#888; font-style:italic; display:none;">No posts found</p>
+</div>
 
 <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
 <script>
@@ -19,33 +24,46 @@ permalink: /blog.html
     {
       "title": {{ post.title | jsonify }},
       "url": {{ post.url | relative_url | jsonify }},
-      "date": {{ post.date | date: "%B %d, %Y" | jsonify }}
+      "date": {{ post.date | date: "%B %d, %Y" | jsonify }},
+      "excerpt": {{ post.content | strip_html | truncate: 160 | jsonify }}
     }{% unless forloop.last %},{% endunless %}
     {% endfor %}
   ];
 
-  const resultsContainer = document.getElementById('results');
+  const results = document.getElementById('results');
+  const noResults = document.getElementById('no-results');
 
-  // Show ALL posts on page load
-  function showAllPosts() {
-    resultsContainer.innerHTML = window.store.map(post => `
-      <li style="margin:20px 0; padding-bottom:15px; border-bottom:1px solid #eee">
-        <a href="${post.url}" style="font-size:20px; color:#0066cc; text-decoration:none">${post.title}</a><br>
-        <small style="color:#888">${post.date}</small>
-      </li>
+  function displayResults(posts) {
+    if (posts.length === 0) {
+      noResults.style.display = 'block';
+      results.innerHTML = '';
+      return;
+    }
+    noResults.style.display = 'none';
+    results.innerHTML = posts.map(p => `
+      <div style="background:white; padding:30px; margin-bottom:30px; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,0.08); border-left:5px solid #0066cc;">
+        <h2 style="margin:0 0 10px 0; font-size:1.8rem;">
+          <a href="${p.url}" style="color:#0066cc; text-decoration:none;">${p.title}</a>
+        </h2>
+        <small style="color:#888;">${p.date}</small>
+        <p style="margin:15px 0 0; color:#444; line-height:1.6;">${p.excerpt}...</p>
+      </div>
     `).join('');
   }
 
-  // Initial load – show everything
-  showAllPosts();
+  // Show all posts on load
+  displayResults(window.store);
 
-  // Now add live search
+  // Live search
   SimpleJekyllSearch({
     searchInput: document.getElementById('search-input'),
-    resultsContainer: resultsContainer,
+    resultsContainer: results,
     json: '/search.json',
-    searchResultTemplate: '<li style="margin:20px 0; padding-bottom:15px; border-bottom:1px solid #eee"><a href="{url}" style="font-size:20px; color:#0066cc; text-decoration:none">{title}</a><br><small style="color:#888">{date}</small></li>',
-    noResultsText: '<li style="padding:30px; color:#999; font-style:italic">No posts found</li>'
+    searchResultTemplate: false,
+    noResultsText: ''
+  });
+
+  document.getElementById('search-input').addEventListener('input', function(e) {
+    if (e.target.value === '') displayResults(window.store);
   });
 </script>
-
