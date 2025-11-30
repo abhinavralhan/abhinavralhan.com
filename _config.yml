@@ -33,6 +33,20 @@ theme: jekyll-theme-minimal
 plugins:
   - jekyll-feed
 
+
+
+#   - jekyll-paginate
+
+# # Pagination (add or uncomment these)
+# paginate: 8                  # number of posts you want on the homepage
+# paginate_path: "/page:num/"  # keeps URLs clean like /page/2/
+
+
+
+
+
+
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
