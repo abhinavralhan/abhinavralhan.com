@@ -72,12 +72,3 @@ layout: default
     json: '/search.json'
   });
 </script>
-
-<style>
-  a:hover { background: #0066cc; color: white !important; }
-  @media (max-width: 640px) {
-    h1 { font-size: 3.2rem; }
-    .fixed-nav { position: static; margin: 40px 0; text-align: center; }
-    .fixed-nav a { display: inline-block; margin: 8px !important; }
-  }
-</style>

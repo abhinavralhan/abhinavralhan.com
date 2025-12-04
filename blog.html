@@ -19,16 +19,16 @@ permalink: /blog.html
 
 <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
 <script>
-  window.store = [
-    {% for post in site.posts %}
-    {
-      "title": {{ post.title | jsonify }},
-      "url": {{ post.url | relative_url | jsonify }},
-      "date": {{ post.date | date: "%B %d, %Y" | jsonify }},
-      "excerpt": {{ post.content | strip_html | truncate: 160 | jsonify }}
-    }{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  ];
+  // window.store = [
+  //   {% for post in site.posts %}
+  //   {
+  //     "title": {{ post.title | jsonify }},
+  //     "url": {{ post.url | relative_url | jsonify }},
+  //     "date": {{ post.date | date: "%B %d, %Y" | jsonify }},
+  //     "excerpt": {{ post.content | strip_html | truncate: 160 | jsonify }}
+  //   }{% unless forloop.last %},{% endunless %}
+  //   {% endfor %}
+  // ];
 
   const results = document.getElementById('results');
   const noResults = document.getElementById('no-results');
@@ -41,8 +41,8 @@ permalink: /blog.html
     }
     noResults.style.display = 'none';
     results.innerHTML = posts.map(p => `
-      <div style="background:white; padding:30px; margin-bottom:30px; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,0.08); border-left:5px solid #0066cc;">
-        <h2 style="margin:0 0 10px 0; font-size:1.8rem;">
+      <div style="background:white; padding:30px; margin-bottom:30px; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,0.08); border-left:5px solid #0066cc; display: flex; flex-direction: column;">
+        <h2 style="margin:0 0 10px 0; font-size:1.8rem; display: block; width: 100%;">
           <a href="${p.url}" style="color:#0066cc; text-decoration:none;">${p.title}</a>
         </h2>
         <small style="color:#888;">${p.date}</small>
