@@ -6,19 +6,96 @@ layout: default
   .wrapper > header {
     padding-top: 50px;
   }
+
+  /* Sidebar navigation links */
+  .sidebar-nav {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .sidebar-nav a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 14px;
+    border: 2px solid #0066cc;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .sidebar-nav a:hover {
+    background: #0066cc;
+    color: white;
+  }
+
+  /* Mobile responsive styles */
+  @media (max-width: 768px) {
+    .wrapper {
+      flex-direction: column !important;
+    }
+    .wrapper > header {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 20px !important;
+      float: none !important;
+      position: relative !important;
+    }
+    .wrapper > section {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 20px !important;
+      float: none !important;
+      border-left: none !important;
+      margin-left: 0 !important;
+    }
+    .sidebar-nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .sidebar-nav a {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+    #search-input {
+      font-size: 16px !important;
+      padding: 12px !important;
+    }
+    .post-card {
+      padding: 20px !important;
+    }
+    .post-card h3 {
+      font-size: 1.1rem !important;
+    }
+  }
 </style>
 
-<div style="position: fixed; top: 30px; right: 30px; z-index: 100;">
-  <a href="/projects/" style="margin-left: 12px; color: #0066cc; text-decoration: none; font-weight: 600; font-size: 15px; padding: 10px 18px; border: 2px solid #0066cc; border-radius: 8px; transition: all 0.3s;">Projects</a>
-  <a href="https://linktr.ee/abhinavr8" style="margin-left: 12px; color: #0066cc; text-decoration: none; font-weight: 600; font-size: 15px; padding: 10px 18px; border: 2px solid #0066cc; border-radius: 8px; transition: all 0.3s;">Useful Links</a>
-  <a href="https://buymeacoffee.com/abhinavr8" style="margin-left: 12px; color: #0066cc; text-decoration: none; font-weight: 600; font-size: 15px; padding: 10px 18px; border: 2px solid #0066cc; border-radius: 8px; transition: all 0.3s;">Buy me a coffee!</a>
-  <a href="mailto:abhinavralhan1@gmail.com" style="margin-left: 12px; color: #0066cc; text-decoration: none; font-weight: 600; font-size: 15px; padding: 10px 18px; border: 2px solid #0066cc; border-radius: 8px; transition: all 0.3s;">Contact</a>
-</div>
+<!-- Sidebar navigation (added via JavaScript) -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const header = document.querySelector('.wrapper > header');
+  if (header) {
+    const navDiv = document.createElement('div');
+    navDiv.className = 'sidebar-nav';
+    navDiv.innerHTML = `
+      <a href="/">Home</a>
+      <a href="/projects/">Projects</a>
+      <a href="https://linktr.ee/abhinavr8">Useful Links</a>
+      <a href="https://buymeacoffee.com/abhinavr8">Buy me a coffee!</a>
+      <a href="mailto:abhinavralhan1@gmail.com">Contact</a>
+    `;
+    // Insert at the beginning of header (above name)
+    header.insertBefore(navDiv, header.firstChild);
+  }
+});
+</script>
 
 <div style="max-width: 1000px; margin: 20px auto 60px; padding: 0 20px;">
   <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 40px; color: #222;">Blog</h2>
-  
-  <input type="text" id="search-input" placeholder="Search posts…" 
+
+  <input type="text" id="search-input" placeholder="Search posts…"
          style="width:100%; padding:16px; font-size:18px; border:2px solid #0066cc; border-radius:12px; margin-bottom:40px;">
 
   <div id="results"></div>
@@ -32,7 +109,6 @@ layout: default
   <a href="/page/2/" style="color:#0066cc; margin:0 30px; text-decoration:none;" id="next-link">Next</a>
 </div>
 
-<script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
 <script>
   const allPosts = [
     {% for post in site.posts %}
@@ -89,16 +165,20 @@ layout: default
 
   paginationDiv.innerHTML = paginationHTML;
 
-  function displayResults(posts) {
+  // Function to display posts in card format
+  function displayPosts(posts) {
     const results = document.getElementById('results');
+    const noResults = document.getElementById('no-results');
+
     if (posts.length === 0) {
-      document.getElementById('no-results').style.display = 'block';
+      noResults.style.display = 'block';
       results.innerHTML = '';
       return;
     }
-    document.getElementById('no-results').style.display = 'none';
+
+    noResults.style.display = 'none';
     results.innerHTML = posts.map(p => `
-      <div style="background:white; padding:30px; margin-bottom:30px; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,0.08); border-left:5px solid #0066cc;">
+      <div class="post-card" style="background:white; padding:30px; margin-bottom:30px; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,0.08); border-left:5px solid #0066cc;">
         <h3 style="margin:0 0 10px 0;"><a href="${p.url}" style="color:#0066cc; text-decoration:none;">${p.title}</a></h3>
         <small style="color:#888;">${p.date}</small>
         <p style="margin:15px 0 0; color:#444; line-height:1.6;">${p.excerpt}...</p>
@@ -106,11 +186,27 @@ layout: default
     `).join('');
   }
 
-  displayResults(postsToShow);
+  // Initial display of paginated posts
+  displayPosts(postsToShow);
 
-  SimpleJekyllSearch({
-    searchInput: document.getElementById('search-input'),
-    resultsContainer: document.getElementById('results'),
-    json: allPosts
+  // Custom search with card format results
+  const searchInput = document.getElementById('search-input');
+
+  searchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase().trim();
+
+    if (query === '') {
+      // When search is cleared, show paginated posts again
+      displayPosts(postsToShow);
+      return;
+    }
+
+    // Filter posts based on search query
+    const filteredPosts = allPosts.filter(post =>
+      post.title.toLowerCase().includes(query) ||
+      post.excerpt.toLowerCase().includes(query)
+    );
+
+    displayPosts(filteredPosts);
   });
 </script>
