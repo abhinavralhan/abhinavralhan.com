@@ -1,0 +1,11 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var h = document.querySelector('.wrapper > header');
+  if (h) {
+    var n = document.createElement('div');
+    n.className = 'sidebar-nav';
+    n.innerHTML = '<a href="/">Home</a><a href="/projects/">Projects</a><a href="https://linktr.ee/abhinavr8">Useful Links</a><a href="https://buymeacoffee.com/abhinavr8">Buy me a coffee!</a><a href="mailto:abhinavralhan1@gmail.com">Contact</a>';
+    h.insertBefore(n, h.firstChild);
+  }
+});
+</script>

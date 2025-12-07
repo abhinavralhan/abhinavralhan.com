@@ -1,108 +1,15 @@
 ---
 layout: default
 ---
+{% include sidebar-nav.html %}
 
-<style>
-  /* Hide theme footer */
-  .wrapper > footer {
-    display: none !important;
-  }
+<h1 class="post-title">{{ page.title }}</h1>
+<p class="post-date">{{ page.date | date: "%B %d, %Y" }}</p>
 
-  /* Push sidebar down slightly */
-  .wrapper > header {
-    padding-top: 50px;
-  }
-
-  /* Sidebar navigation links */
-  .sidebar-nav {
-    margin-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .sidebar-nav a {
-    color: #0066cc;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 13px;
-    padding: 8px 14px;
-    border: 2px solid #0066cc;
-    border-radius: 6px;
-    text-align: center;
-    transition: all 0.3s;
-  }
-  .sidebar-nav a:hover {
-    background: #0066cc;
-    color: white;
-  }
-
-  /* Mobile responsive styles */
-  @media (max-width: 768px) {
-    .wrapper {
-      flex-direction: column !important;
-    }
-    .wrapper > header {
-      width: 100% !important;
-      max-width: 100% !important;
-      padding: 20px !important;
-      float: none !important;
-      position: relative !important;
-    }
-    .wrapper > section {
-      width: 100% !important;
-      max-width: 100% !important;
-      padding: 20px !important;
-      float: none !important;
-      border-left: none !important;
-      margin-left: 0 !important;
-    }
-    .sidebar-nav {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .sidebar-nav a {
-      font-size: 12px;
-      padding: 6px 10px;
-    }
-    .post-title {
-      font-size: 1.8rem !important;
-    }
-    .post-content {
-      font-size: 1rem !important;
-    }
-  }
-</style>
-
-<!-- Sidebar navigation (added via JavaScript) -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const header = document.querySelector('.wrapper > header');
-  if (header) {
-    const navDiv = document.createElement('div');
-    navDiv.className = 'sidebar-nav';
-    navDiv.innerHTML = `
-      <a href="/">Home</a>
-      <a href="/projects/">Projects</a>
-      <a href="https://linktr.ee/abhinavr8">Useful Links</a>
-      <a href="https://buymeacoffee.com/abhinavr8">Buy me a coffee!</a>
-      <a href="mailto:abhinavralhan1@gmail.com">Contact</a>
-    `;
-    // Insert at the beginning of header (above name)
-    header.insertBefore(navDiv, header.firstChild);
-  }
-});
-</script>
-
-<div style="display: block; width: 100%;">
-  <h1 class="post-title" style="text-align: center; font-size: 2.5rem; font-weight: 700; color: #1a1a1a; margin: 20px 0 12px 0;">{{ page.title }}</h1>
-  <p style="text-align: center; color: #888; font-size: 1rem; margin: 0 0 40px 0;">{{ page.date | date: "%B %d, %Y" }}</p>
+<div class="post-content">
+{{ content }}
 </div>
 
-<div class="post-content" style="display: block; width: 100%; font-size: 1.1rem; color: #333; line-height: 1.7;">
-  {{ content }}
-</div>
-
-<div style="display: block; width: 100%; margin-top: 80px; padding-top: 30px; border-top: 1px solid #eee; text-align: center;">
-  <a href="/" style="color: #0066cc; text-decoration: none; font-weight: 600;">← Back to Home</a>
+<div class="post-footer">
+  <a href="/">← Back to Home</a>
 </div>

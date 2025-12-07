@@ -1,0 +1,22 @@
+---
+layout: default
+---
+{% include sidebar-nav.html %}
+
+<div class="project-header">
+  <h1 class="post-title">{{ page.title }}</h1>
+  <div class="tech-stack">
+    {% for tech in page.tech %}
+    <span>{{ tech }}</span>
+    {% endfor %}
+  </div>
+  <div class="project-meta">
+    {% if page.github %}<a href="{{ page.github }}">GitHub</a>{% endif %}
+    {% if page.demo %}<a href="{{ page.demo }}">Live Demo</a>{% endif %}
+    <a href="/projects/">← All Projects</a>
+  </div>
+</div>
+
+<div class="post-content">
+{{ content }}
+</div>
