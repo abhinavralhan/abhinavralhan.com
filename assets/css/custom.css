@@ -1,3 +1,9 @@
+/* Prevent horizontal overflow on mobile */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 /* Shared styles */
 .wrapper > header { padding-top: 50px; }
 .wrapper > footer { display: none !important; }
@@ -10,14 +16,14 @@
   padding: 0 40px !important;
 }
 .wrapper > header {
-  width: 200px !important;
-  min-width: 200px !important;
+  width: 260px !important;
+  min-width: 260px !important;
   padding-right: 0 !important;
-  margin-right: 60px !important;
+  margin-right: 50px !important;
 }
 .wrapper > section {
   max-width: none !important;
-  width: calc(100% - 280px) !important;
+  width: calc(100% - 330px) !important;
   padding-left: 0 !important;
 }
 
@@ -26,16 +32,16 @@
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 .sidebar-nav a {
   color: #0066cc;
   text-decoration: none;
   font-weight: 600;
-  font-size: 12px;
-  padding: 7px 12px;
+  font-size: 14px;
+  padding: 10px 16px;
   border: 2px solid #0066cc;
-  border-radius: 6px;
+  border-radius: 8px;
   text-align: center;
   transition: all 0.2s;
 }
@@ -107,7 +113,7 @@
   text-align: center;
   color: #888;
   font-size: 1rem;
-  margin: 0 0 10px 0;
+  margin: 0 0 30px 0;
 }
 .post-source {
   text-align: center;
@@ -214,6 +220,80 @@
   color: #555;
 }
 
+/* GitHub Activity - OPTION 1: Bottom of page */
+.github-activity {
+  margin-top: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  border-left: 5px solid #0066cc;
+}
+.github-activity h3 {
+  margin: 0 0 20px 0;
+  color: #222;
+  font-size: 1.3rem;
+}
+.github-chart {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.github-repos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.github-repo-item {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.github-repo-item:hover {
+  background: #e9ecef;
+}
+.github-repo-item strong {
+  color: #0066cc;
+  font-size: 0.95rem;
+}
+.github-repo-item span {
+  color: #666;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+/* GitHub Activity - Sidebar */
+.sidebar-github {
+  display: block;
+  margin-top: 30px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.sidebar-github:hover {
+  background: #e9ecef;
+}
+.github-label {
+  display: block;
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.sidebar-github img {
+  width: 100%;
+  border-radius: 4px;
+  filter: contrast(1.1) saturate(1.2);
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
   .wrapper {
@@ -222,6 +302,7 @@
     width: 100% !important;
     max-width: 100% !important;
     padding: 0 15px !important;
+    box-sizing: border-box !important;
   }
   .wrapper > header {
     width: 100% !important;
@@ -231,6 +312,7 @@
     float: none !important;
     position: relative !important;
     margin-right: 0 !important;
+    text-align: center !important;
   }
   .wrapper > section {
     width: 100% !important;
@@ -239,6 +321,7 @@
     float: none !important;
     border-left: none !important;
     margin-left: 0 !important;
+    box-sizing: border-box !important;
   }
   .sidebar-nav {
     flex-direction: row;
@@ -258,18 +341,41 @@
   #search-input {
     font-size: 16px !important;
     padding: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   .card {
-    padding: 20px;
+    padding: 15px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   .card h3 {
     font-size: 1.1rem;
   }
+  .card p {
+    font-size: 0.95rem;
+  }
+  .page-title {
+    font-size: 1.8rem !important;
+  }
   .post-title {
-    font-size: 1.6rem !important;
+    font-size: 1.5rem !important;
   }
   .post-content {
     font-size: 1rem !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  .post-content pre,
+  .post-content code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  .post-content img {
+    max-width: 100%;
+    height: auto;
   }
   .pagination {
     flex-wrap: wrap;
@@ -284,5 +390,18 @@
   .project-meta {
     flex-direction: column;
     align-items: center;
+  }
+  .github-activity {
+    padding: 20px;
+    margin-top: 30px;
+  }
+  .github-activity h3 {
+    font-size: 1.1rem;
+  }
+  .github-repo-item {
+    padding: 10px 12px;
+  }
+  .sidebar-github {
+    display: none;
   }
 }

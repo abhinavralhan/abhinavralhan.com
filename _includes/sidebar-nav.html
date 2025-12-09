@@ -7,6 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
     n.innerHTML = '<a href="/">Home</a><a href="/projects/">Projects</a><a href="https://linktr.ee/abhinavr8">Useful Links</a><a href="mailto:abhinavralhan1@gmail.com">Contact</a>';
     h.insertBefore(n, h.firstChild);
 
+    // GitHub contribution chart with label
+    var github = document.createElement('a');
+    github.href = 'https://github.com/abhinavralhan';
+    github.target = '_blank';
+    github.className = 'sidebar-github';
+    github.innerHTML = '<span class="github-label">Public Contributions</span><img src="https://ghchart.rshah.org/0066cc/abhinavralhan" alt="GitHub Contributions">';
+    h.appendChild(github);
+
     // Add coffee button at bottom of sidebar
     var coffee = document.createElement('a');
     coffee.href = 'https://buymeacoffee.com/abhinavr8';

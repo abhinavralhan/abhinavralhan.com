@@ -11,6 +11,13 @@ layout: default
 
 <div class="pagination" id="pagination"></div>
 
+<!-- GitHub Activity Section - OPTION 1: Bottom of page -->
+<!-- <div class="github-activity">
+  <h3>GitHub Activity</h3>
+  <img src="https://ghchart.rshah.org/0066cc/abhinavr8" alt="GitHub Contribution Chart" class="github-chart">
+  <div id="github-repos"></div>
+</div> -->
+
 <script>
 var posts = [{% for post in site.posts %}{title:{{ post.title | jsonify }},url:"{{ post.url }}",date:"{{ post.date | date: '%B %d, %Y' }}",excerpt:{{ post.content | strip_html | truncate: 160 | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}];
 var page = location.pathname.match(/\/page\/(\d+)/) ? parseInt(RegExp.$1) : 1;
@@ -41,4 +48,22 @@ document.getElementById('search-input').addEventListener('input', function(){
   var q = this.value.toLowerCase().trim();
   render(q ? posts.filter(function(p){return p.title.toLowerCase().includes(q)||p.excerpt.toLowerCase().includes(q);}) : show);
 });
+
+// Fetch recent GitHub repos
+fetch('https://api.github.com/users/abhinavr8/repos?sort=updated&per_page=5')
+  .then(r => r.json())
+  .then(repos => {
+    var html = '<div class="github-repos-list">';
+    repos.slice(0, 5).forEach(function(repo) {
+      html += '<a href="' + repo.html_url + '" class="github-repo-item" target="_blank">';
+      html += '<strong>' + repo.name + '</strong>';
+      if (repo.description) html += '<span>' + repo.description.substring(0, 60) + (repo.description.length > 60 ? '...' : '') + '</span>';
+      html += '</a>';
+    });
+    html += '</div>';
+    document.getElementById('github-repos').innerHTML = html;
+  })
+  .catch(function() {
+    document.getElementById('github-repos').innerHTML = '<p style="color:#888;font-size:0.9rem;">Unable to load repos</p>';
+  });
 </script>
