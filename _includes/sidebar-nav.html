@@ -4,8 +4,15 @@ document.addEventListener('DOMContentLoaded', function() {
   if (h) {
     var n = document.createElement('div');
     n.className = 'sidebar-nav';
-    n.innerHTML = '<a href="/">Home</a><a href="/projects/">Projects</a><a href="https://linktr.ee/abhinavr8">Useful Links</a><a href="https://buymeacoffee.com/abhinavr8">Buy me a coffee!</a><a href="mailto:abhinavralhan1@gmail.com">Contact</a>';
+    n.innerHTML = '<a href="/">Home</a><a href="/projects/">Projects</a><a href="https://linktr.ee/abhinavr8">Useful Links</a><a href="mailto:abhinavralhan1@gmail.com">Contact</a>';
     h.insertBefore(n, h.firstChild);
+
+    // Add coffee button at bottom of sidebar
+    var coffee = document.createElement('a');
+    coffee.href = 'https://buymeacoffee.com/abhinavr8';
+    coffee.className = 'coffee-btn';
+    coffee.textContent = 'Buy me a coffee';
+    h.appendChild(coffee);
   }
 });
 </script>

@@ -13,7 +13,7 @@ layout: default
 
 <script>
 var posts = [{% for post in site.posts %}{title:{{ post.title | jsonify }},url:"{{ post.url }}",date:"{{ post.date | date: '%B %d, %Y' }}",excerpt:{{ post.content | strip_html | truncate: 160 | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}];
-var page = 2;
+var page = 6;
 var perPage = 3, start = (page-1)*perPage, show = posts.slice(start, start+perPage), total = Math.ceil(posts.length/perPage);
 
 function render(p) {
