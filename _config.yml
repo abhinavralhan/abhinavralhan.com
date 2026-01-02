@@ -28,22 +28,14 @@ twitter_username: jekyllrb
 github_username:  jekyll
 
 # Build settings
+future: true
 theme: jekyll-theme-minimal
 #theme: minima
 plugins:
   - jekyll-feed
-  - jekyll-paginate
 
-paginate: 3
-paginate_path: "/page/:num/"
+# Using client-side JavaScript pagination instead of jekyll-paginate
 posts_per_page: 3
-
-
-#   - jekyll-paginate
-
-# # Pagination (add or uncomment these)
-# paginate: 8                  # number of posts you want on the homepage
-# paginate_path: "/page:num/"  # keeps URLs clean like /page/2/
 
 
 

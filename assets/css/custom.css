@@ -140,6 +140,27 @@ html, body {
 }
 .post-footer a { color: #0066cc; text-decoration: none; font-weight: 600; }
 
+/* Comments section */
+.comments-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+.comments-section h3 {
+  font-size: 1.3rem;
+  color: #222;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.comments-section .utterances {
+  max-width: 100%;
+  margin: 0 auto;
+}
+.utterances-frame {
+  width: 100% !important;
+}
+
 /* Page header */
 .page-title {
   font-size: 2.5rem;
